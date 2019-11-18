@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Diagnostics;
 
 public class PathFinding : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class PathFinding : MonoBehaviour
 
 
     void Update() {
-        FindPath(seeker.position, target.position);
+    
+       FindPath(seeker.position, target.position);
+
     }
 
     void Awake() {
@@ -17,31 +20,27 @@ public class PathFinding : MonoBehaviour
     
     }
     void FindPath(Vector3 startPos, Vector3 targetPos) {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
-        List<Node> openSet = new List<Node>();
+        Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
         HashSet <Node> closedSet = new HashSet<Node>();
 
         openSet.Add(startNode);
 
-        startNode.hCost = GetDistance(startNode, targetNode);
-        startNode.hCost = 0;
+        startNode.hCost = GetDistance(startNode, targetNode); //EditHere
+        startNode.gCost = 0; ////EditHere
 
         while (openSet.Count > 0) {
             //Get Node with minimum fCost (use hCost as tie-braker):
-            Node currentNode = openSet[0];
+            Node currentNode = openSet.RemoveFirst();
 
-            for (int i = 1; i < openSet.Count; i++) {
-                if (openSet[i].fCost < currentNode.fCost || (openSet[i].fCost == currentNode.fCost && openSet[i].hCost< currentNode.hCost)) {
-                    currentNode = openSet[i];
-                }
-            
-            }//End of for Loop
-
-            openSet.Remove(currentNode);
             closedSet.Add(currentNode);
 
             if (currentNode == targetNode) {
+                sw.Stop();
+                print("Path found: " + sw.ElapsedMilliseconds + "ms");
                 RetracePath(startNode, targetNode);
                 return; //Will come back to that Edit#
             }

@@ -10,7 +10,7 @@ public class Grid : MonoBehaviour
     Node[,] grid;
     public Transform Player;
     public List<Node> path;
-   
+    public bool onlyDisplayPathGizmos;
 
     float nodeDiameter; //Diameter of single node (grid square) in terms of unity points.
     int gridSizeX, gridSizeY; //Sizes of Grid in terms of number of grids
@@ -74,6 +74,18 @@ public class Grid : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
+
+        if (onlyDisplayPathGizmos) {
+            if (path != null) {
+                foreach (Node n in path)
+                {
+                   Gizmos.color = Color.black;
+                   Gizmos.DrawCube(n.worldPosition, Vector3.one * nodeDiameter);
+                }
+            
+            }
+        }
+
         if (grid != null) {
 
             Node PlayerNode = NodeFromWorldPoint(Player.position);
@@ -94,6 +106,12 @@ public class Grid : MonoBehaviour
         } 
     }
 
-    
+    public int MaxSize
+    {
+        get {
+            return gridSizeX * gridSizeY;
+        }
+
+    }
 
 }
