@@ -57,6 +57,8 @@
      <Compile Include="Assets\Scripts\Heap.cs" />
      <Compile Include="Assets\Scripts\Node.cs" />
      <Compile Include="Assets\Scripts\PathFinding.cs" />
+     <Compile Include="Assets\Scripts\PathRequestManager.cs" />
+     <Compile Include="Assets\Scripts\unit.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/DELL/MultiAgent-Navigation-Unity/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
