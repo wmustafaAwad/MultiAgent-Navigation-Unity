@@ -46,7 +46,10 @@ public class unit : MonoBehaviour
     public void Waleed() {
     
     }
+    
+    public void Alaa(){
 
+    }
 
     public void OnDrawGizmos() {
         if (path != null) {
