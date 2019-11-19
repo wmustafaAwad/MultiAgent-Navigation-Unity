@@ -43,6 +43,11 @@ public class unit : MonoBehaviour
     
     }
 
+    public void Waleed() {
+    
+    }
+
+
     public void OnDrawGizmos() {
         if (path != null) {
             for (int i = targetIndex; i <= path.Length; i++)
