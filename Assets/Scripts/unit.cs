@@ -5,13 +5,26 @@ using UnityEngine;
 public class unit : MonoBehaviour
 {
     public Transform target;
-    float speed = 20;
+    float speed = 10;
     Vector3[] path;
     int targetIndex;
 
+    public GameObject mainChannel; //Waleed
+    List<unit> allOtherUnits; //Waleed
+
+    void Awake() { //Waleed
+      
+    }
+
     void Start() {
+        allOtherUnits = mainChannel.getallUnits();
+        Debug.Log(name + " got the communicator and array of others with first element as " + allOtherUnits[0].name); //Waleed
+      
         PathRequestManager.RequestPath(transform.position, target.position,OnPathFound);
-    
+    }
+
+    void Update() { 
+        
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
